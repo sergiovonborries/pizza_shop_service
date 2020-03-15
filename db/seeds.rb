@@ -35,3 +35,11 @@ if Topping.count == 0
     end
     puts 'Some toppings created'
 end   
+
+if PizzaSize.count == 0
+    PizzaSize.create!(description: 'Personal', default_slices: 1)
+    PizzaSize.create!(description: 'Small', default_slices: 4)
+    PizzaSize.create!(description: 'Medium', default_slices: 6)
+    PizzaSize.create!(description: 'Large', default_slices: 8)
+    puts 'Some PizzaSize created'
+end

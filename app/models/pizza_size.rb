@@ -1,0 +1,2 @@
+class PizzaSize < ApplicationRecord
+end
