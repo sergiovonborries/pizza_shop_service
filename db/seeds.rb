@@ -20,4 +20,18 @@ if Ingredient.count == 0
         )
     end
     puts 'Some ingredients created'
-end    
+end   
+
+if Topping.count == 0
+    10.times do
+        Topping.create( 
+            name: Faker::Food.fruits
+        )
+    end
+    10.times do
+        Topping.create( 
+            name: Faker::Food.vegetables
+        )
+    end
+    puts 'Some toppings created'
+end   
