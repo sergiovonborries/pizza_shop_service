@@ -23,7 +23,7 @@ ruby -v
 In the root path we should to create a gemset only to have the gems used in this project. Let's create and use the gemset.
 The following line creates a new gemset and use it.
 ```
-rvm use 2.5.3@pizza_shop_service --create
+rvm use 2.6.5@pizza_shop_service --create
 ```
 The last step is to install Bundler
 ```
