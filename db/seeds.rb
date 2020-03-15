@@ -12,3 +12,12 @@ if Pizza.count == 0
     Pizza.create!(name: 'Margarita')
     puts 'Some pizzas created'
 end
+
+if Ingredient.count == 0
+    25.times do
+        Ingredient.create( 
+            name: Faker::Food.ingredient
+        )
+    end
+    puts 'Some ingredients created'
+end    
