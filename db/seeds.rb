@@ -13,6 +13,14 @@ if Pizza.count == 0
     puts 'Some pizzas created'
 end
 
+if OtherProduct.count == 0
+    OtherProduct.create!(name: 'Spaghetti')
+    OtherProduct.create!(name: 'Lasagna')
+    OtherProduct.create!(name: 'Veggie Salad')
+    OtherProduct.create!(name: 'Margarita Salad')
+    puts 'Some OtherProduct created'
+end
+
 if Ingredient.count == 0
     25.times do
         Ingredient.create( 
@@ -47,14 +55,21 @@ end
 if Order.count == 0
     10.times do
         order = Order.create(customer_name: Faker::Name.name_with_middle, comment: Faker::Lorem.sentence)
+        Delivery.create(address: Faker::Address.street_address, ask_for: order.customer_name, order_id: order.id) if [true, false].sample
         rand(1..6).times do
-            pizzaitem = PizzaItem.new(cheese: rand(3), crust: rand(3), sauce: rand(4), pizza_size_id: PizzaSize.order('RANDOM()').first.id)
-            3.times do
-                pizzaitem.pizza_item_ingredients.build(ingredient_id: Ingredient.order('RANDOM()').first.id)
-                pizzaitem.pizza_item_toppings.build(topping_id: Topping.order('RANDOM()').first.id)
+            item = nil
+            if [true, false].sample
+                item = PizzaItem.new(cheese: rand(3), crust: rand(3), sauce: rand(4), pizza_size_id: PizzaSize.order('RANDOM()').first.id, pizza_id: Pizza.order('RANDOM()').first.id)
+                3.times do
+                    item.pizza_item_ingredients.build(ingredient_id: Ingredient.order('RANDOM()').first.id)
+                    item.pizza_item_toppings.build(topping_id: Topping.order('RANDOM()').first.id)
+                end
+            else
+                item = OtherProductItem.new(other_product_id: OtherProduct.order('RANDOM()').first.id)
             end
-            pizzaitem.save
-            orderitem = OrderItem.create(order_id: order.id, quantity: Faker::Number.number(digits: 1), orderable: pizzaitem)
+            
+            item.save if item
+            orderitem = OrderItem.create(order_id: order.id, quantity: Faker::Number.number(digits: 1), orderable: item) if item
         end
     end
     puts 'Some Orders Created'

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_15_232533) do
+ActiveRecord::Schema.define(version: 2020_03_16_030237) do
+
+  create_table "deliveries", force: :cascade do |t|
+    t.string "address"
+    t.string "ask_for"
+    t.integer "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
+  end
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
@@ -31,6 +40,19 @@ ActiveRecord::Schema.define(version: 2020_03_15_232533) do
   create_table "orders", force: :cascade do |t|
     t.string "customer_name"
     t.string "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "other_product_items", force: :cascade do |t|
+    t.integer "other_product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["other_product_id"], name: "index_other_product_items_on_other_product_id"
+  end
+
+  create_table "other_products", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -59,8 +81,10 @@ ActiveRecord::Schema.define(version: 2020_03_15_232533) do
     t.integer "crust", default: 0
     t.integer "custom_slices"
     t.integer "pizza_size_id", null: false
+    t.integer "pizza_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["pizza_id"], name: "index_pizza_items_on_pizza_id"
     t.index ["pizza_size_id"], name: "index_pizza_items_on_pizza_size_id"
   end
 
@@ -83,10 +107,13 @@ ActiveRecord::Schema.define(version: 2020_03_15_232533) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "deliveries", "orders"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "other_product_items", "other_products"
   add_foreign_key "pizza_item_ingredients", "ingredients"
   add_foreign_key "pizza_item_ingredients", "pizza_items"
   add_foreign_key "pizza_item_toppings", "pizza_items"
   add_foreign_key "pizza_item_toppings", "toppings"
   add_foreign_key "pizza_items", "pizza_sizes"
+  add_foreign_key "pizza_items", "pizzas"
 end

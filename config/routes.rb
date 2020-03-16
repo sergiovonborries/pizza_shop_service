@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   namespace :api do
     namespace :v1 do
       resources :pizzas
@@ -8,6 +9,9 @@ Rails.application.routes.draw do
       resources :pizza_items
       resources :order_items
       resources :orders
+      resources :other_product_items
+      resources :other_products
+      resources :deliveries
       
       get 'get_cheeses' => 'pizza_items#get_cheeses'
       get 'get_crusts' => 'pizza_items#get_crusts'
