@@ -1,5 +1,6 @@
 class PizzaItem < ApplicationRecord
   belongs_to :pizza_size
+  belongs_to :pizza
   has_many :order_items, as: :orderable
 
   has_many :pizza_item_toppings

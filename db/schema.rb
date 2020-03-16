@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_030237) do
+ActiveRecord::Schema.define(version: 2020_03_16_032459) do
 
   create_table "deliveries", force: :cascade do |t|
     t.string "address"
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(version: 2020_03_16_030237) do
     t.index ["pizza_size_id"], name: "index_pizza_items_on_pizza_size_id"
   end
 
+  create_table "pizza_production_processes", force: :cascade do |t|
+    t.integer "pizza_id", null: false
+    t.integer "production_process_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "minutes"
+    t.index ["pizza_id"], name: "index_pizza_production_processes_on_pizza_id"
+    t.index ["production_process_id"], name: "index_pizza_production_processes_on_production_process_id"
+  end
+
   create_table "pizza_sizes", force: :cascade do |t|
     t.string "description"
     t.integer "default_slices"
@@ -96,6 +106,12 @@ ActiveRecord::Schema.define(version: 2020_03_16_030237) do
   end
 
   create_table "pizzas", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "production_processes", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -116,4 +132,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_030237) do
   add_foreign_key "pizza_item_toppings", "toppings"
   add_foreign_key "pizza_items", "pizza_sizes"
   add_foreign_key "pizza_items", "pizzas"
+  add_foreign_key "pizza_production_processes", "pizzas"
+  add_foreign_key "pizza_production_processes", "production_processes"
 end
