@@ -1,30 +1,30 @@
 require "rails_helper"
 
-RSpec.describe PizzasController, type: :routing do
+RSpec.describe Api::V1::PizzasController, type: :routing do
   describe "routing" do
     it "routes to #index" do
-      expect(get: "/pizzas").to route_to("pizzas#index")
+      expect(get: "/api/v1/pizzas").to route_to("api/v1/pizzas#index")
     end
 
     it "routes to #show" do
-      expect(get: "/pizzas/1").to route_to("pizzas#show", id: "1")
+      expect(get: "/api/v1/pizzas/1").to route_to("api/v1/pizzas#show", id: "1")
     end
 
 
     it "routes to #create" do
-      expect(post: "/pizzas").to route_to("pizzas#create")
+      expect(post: "/api/v1/pizzas").to route_to("api/v1/pizzas#create")
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/pizzas/1").to route_to("pizzas#update", id: "1")
+      expect(put: "/api/v1/pizzas/1").to route_to("api/v1/pizzas#update", id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/pizzas/1").to route_to("pizzas#update", id: "1")
+      expect(patch: "/api/v1/pizzas/1").to route_to("api/v1/pizzas#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(delete: "/pizzas/1").to route_to("pizzas#destroy", id: "1")
+      expect(delete: "/api/v1/pizzas/1").to route_to("api/v1/pizzas#destroy", id: "1")
     end
   end
 end

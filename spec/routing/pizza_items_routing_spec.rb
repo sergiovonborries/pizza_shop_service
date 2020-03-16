@@ -1,30 +1,30 @@
 require "rails_helper"
 
-RSpec.describe PizzaItemsController, type: :routing do
+RSpec.describe Api::V1::PizzaItemsController, type: :routing do
   describe "routing" do
     it "routes to #index" do
-      expect(get: "/pizza_items").to route_to("pizza_items#index")
+      expect(get: "/api/v1/pizza_items").to route_to("api/v1/pizza_items#index")
     end
 
     it "routes to #show" do
-      expect(get: "/pizza_items/1").to route_to("pizza_items#show", id: "1")
+      expect(get: "/api/v1/pizza_items/1").to route_to("api/v1/pizza_items#show", id: "1")
     end
 
 
     it "routes to #create" do
-      expect(post: "/pizza_items").to route_to("pizza_items#create")
+      expect(post: "/api/v1/pizza_items").to route_to("api/v1/pizza_items#create")
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/pizza_items/1").to route_to("pizza_items#update", id: "1")
+      expect(put: "/api/v1/pizza_items/1").to route_to("api/v1/pizza_items#update", id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/pizza_items/1").to route_to("pizza_items#update", id: "1")
+      expect(patch: "/api/v1/pizza_items/1").to route_to("api/v1/pizza_items#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(delete: "/pizza_items/1").to route_to("pizza_items#destroy", id: "1")
+      expect(delete: "/api/v1/pizza_items/1").to route_to("api/v1/pizza_items#destroy", id: "1")
     end
   end
 end
