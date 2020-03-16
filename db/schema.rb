@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_15_223318) do
+ActiveRecord::Schema.define(version: 2020_03_15_232533) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "order_id", null: false
+    t.integer "orderable_id"
+    t.string "orderable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -66,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_03_15_223318) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "order_items", "orders"
   add_foreign_key "pizza_item_ingredients", "ingredients"
   add_foreign_key "pizza_item_ingredients", "pizza_items"
   add_foreign_key "pizza_item_toppings", "pizza_items"

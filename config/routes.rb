@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       resources :toppings
       resources :pizza_sizes
       resources :pizza_items
-
+      resources :order_items
+      resources :orders
+      
       get 'get_cheeses' => 'pizza_items#get_cheeses'
       get 'get_crusts' => 'pizza_items#get_crusts'
       get 'get_sauces' => 'pizza_items#get_sauces'

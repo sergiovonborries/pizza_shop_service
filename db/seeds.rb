@@ -43,3 +43,19 @@ if PizzaSize.count == 0
     PizzaSize.create!(description: 'Large', default_slices: 8)
     puts 'Some PizzaSize created'
 end
+
+if Order.count == 0
+    10.times do
+        order = Order.create(customer_name: Faker::Name.name_with_middle, comment: Faker::Lorem.sentence)
+        rand(1..6).times do
+            pizzaitem = PizzaItem.new(cheese: rand(3), crust: rand(3), sauce: rand(4), pizza_size_id: PizzaSize.order('RANDOM()').first.id)
+            3.times do
+                pizzaitem.pizza_item_ingredients.build(ingredient_id: Ingredient.order('RANDOM()').first.id)
+                pizzaitem.pizza_item_toppings.build(topping_id: Topping.order('RANDOM()').first.id)
+            end
+            pizzaitem.save
+            orderitem = OrderItem.create(order_id: order.id, quantity: Faker::Number.number(digits: 1), orderable: pizzaitem)
+        end
+    end
+    puts 'Some Orders Created'
+end
