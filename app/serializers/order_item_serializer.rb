@@ -1,13 +1,6 @@
 class OrderItemSerializer < ActiveModel::Serializer
-  attributes :id, :quantity, :orderable_id, :orderable_type
-  belongs_to :orderable
+  attributes :id, :order_id, :quantity
+  has_one :pizza_item
+  has_one :other_product_item
 
-  class << self
-    def serializer_for(model, options)
-      return PizzaItemSerializer if model.class == PizzaItem
-      return OtherProductItemSerializer if model.class == OtherProductItem
-
-      super
-    end
-  end
 end

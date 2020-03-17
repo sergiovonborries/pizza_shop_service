@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_032459) do
+ActiveRecord::Schema.define(version: 2020_03_17_231105) do
 
   create_table "deliveries", force: :cascade do |t|
     t.string "address"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2020_03_16_032459) do
     t.integer "other_product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_item_id"
+    t.index ["order_item_id"], name: "index_other_product_items_on_order_item_id"
     t.index ["other_product_id"], name: "index_other_product_items_on_other_product_id"
   end
 
@@ -84,6 +86,8 @@ ActiveRecord::Schema.define(version: 2020_03_16_032459) do
     t.integer "pizza_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_item_id"
+    t.index ["order_item_id"], name: "index_pizza_items_on_order_item_id"
     t.index ["pizza_id"], name: "index_pizza_items_on_pizza_id"
     t.index ["pizza_size_id"], name: "index_pizza_items_on_pizza_size_id"
   end
@@ -125,11 +129,13 @@ ActiveRecord::Schema.define(version: 2020_03_16_032459) do
 
   add_foreign_key "deliveries", "orders"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "other_product_items", "order_items"
   add_foreign_key "other_product_items", "other_products"
   add_foreign_key "pizza_item_ingredients", "ingredients"
   add_foreign_key "pizza_item_ingredients", "pizza_items"
   add_foreign_key "pizza_item_toppings", "pizza_items"
   add_foreign_key "pizza_item_toppings", "toppings"
+  add_foreign_key "pizza_items", "order_items"
   add_foreign_key "pizza_items", "pizza_sizes"
   add_foreign_key "pizza_items", "pizzas"
   add_foreign_key "pizza_production_processes", "pizzas"
