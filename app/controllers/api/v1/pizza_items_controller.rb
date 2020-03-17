@@ -17,9 +17,8 @@ module Api::V1
     # POST /pizza_items
     def create
       @pizza_item = PizzaItem.new(pizza_item_params)
-
       if @pizza_item.save
-        render json: @pizza_item, status: :created, location: @pizza_item
+        render json: @pizza_item, status: :ok
       else
         render json: @pizza_item.errors, status: :unprocessable_entity
       end
@@ -62,7 +61,9 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def pizza_item_params
-        params.require(:pizza_item).permit(:cheese, :sauce, :crust, :custom_slices, :pizza_size_id)
+        params.require(:pizza_item).permit(:cheese, :sauce, :crust, :custom_slices, :pizza_size_id, :pizza_id, 
+                                          pizza_item_toppings_attributes: [ :id, :pizza_item_id, :topping_id ],
+                                          pizza_item_ingredients_attributes: [ :id, :pizza_item_id, :ingredient_id ] )
       end
   end
 end

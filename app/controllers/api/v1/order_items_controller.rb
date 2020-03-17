@@ -11,9 +11,7 @@ module Api::V1
 
     # GET /order_items/1
     def show
-      render json: @order_item.to_json(
-        include: :orderable
-      )
+      render json: @order_item
     end
 
     # POST /order_items
@@ -49,7 +47,10 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def order_item_params
-        params.require(:order_item).permit(:quantity, :order_id, :orderable_id, :orderable_type)
+        params.require(:order_item).permit(:quantity, :order_id, :orderable_id, :orderable_type, 
+                                            pizza_items_attributes: [ :id, :cheese, :sauce, :crust, :custom_slices, :pizza_size_id, :pizza_id,
+                                              pizza_item_toppings_attributes: [ :id, :pizza_item_id, :topping_id ],
+                                              pizza_item_ingredients_attributes: [ :id, :pizza_item_id, :ingredient_id ] ])
       end
   end
 end
