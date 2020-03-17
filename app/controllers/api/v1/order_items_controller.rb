@@ -47,7 +47,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def order_item_params
-        params.require(:order_item).permit(:quantity, :order_id, :orderable_id, :orderable_type, 
+        params.require(:order_item).permit(:quantity, :order_id, 
                                             pizza_item_attributes: [ :id, :cheese, :sauce, :crust, :custom_slices, :pizza_size_id, :pizza_id,
                                               pizza_item_toppings_attributes: [ :id, :pizza_item_id, :topping_id ],
                                               pizza_item_ingredients_attributes: [ :id, :pizza_item_id, :ingredient_id ] ])
