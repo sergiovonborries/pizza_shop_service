@@ -6,12 +6,12 @@ module Api::V1
     def index
       @order_items = OrderItem.all
 
-      render json: @order_items
+      render json: @order_items, include: "*.*"
     end
 
     # GET /order_items/1
     def show
-      render json: @order_item
+      render json: @order_item, include: "*.*"
     end
 
     # POST /order_items
