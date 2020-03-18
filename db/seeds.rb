@@ -27,15 +27,15 @@ if ProductionProcess.count == 0
     ProductionProcess.create(name: "Heating")
 end
 
-if PizzaProductionProcess.count == 0
-    Pizza.all.each do |pizza|
-        ProductionProcess.all.each do |production_process|
-            pizza.pizza_production_processes.build(production_process_id: production_process.id, minutes: rand(1..30))
-            pizza.save
-        end
-    end
-    puts 'Some PizzaProductionProcess created'
-end
+# if OrderProductionProcess.count == 0
+#     Pizza.all.each do |pizza|
+#         ProductionProcess.all.each do |production_process|
+#             pizza.order_production_processes.build(production_process_id: production_process.id, minutes: rand(1..30))
+#             pizza.save
+#         end
+#     end
+#     puts 'Some OrderProductionProcess created'
+# end
 
 if Ingredient.count == 0
     25.times do

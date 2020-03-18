@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 2020_03_17_231105) do
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
+  create_table "order_production_processes", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "production_process_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "minutes"
+    t.index ["order_id"], name: "index_order_production_processes_on_order_id"
+    t.index ["production_process_id"], name: "index_order_production_processes_on_production_process_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "customer_name"
     t.string "comment"
@@ -90,16 +100,6 @@ ActiveRecord::Schema.define(version: 2020_03_17_231105) do
     t.index ["pizza_size_id"], name: "index_pizza_items_on_pizza_size_id"
   end
 
-  create_table "pizza_production_processes", force: :cascade do |t|
-    t.integer "pizza_id", null: false
-    t.integer "production_process_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "minutes"
-    t.index ["pizza_id"], name: "index_pizza_production_processes_on_pizza_id"
-    t.index ["production_process_id"], name: "index_pizza_production_processes_on_production_process_id"
-  end
-
   create_table "pizza_sizes", force: :cascade do |t|
     t.string "description"
     t.integer "default_slices"
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(version: 2020_03_17_231105) do
 
   add_foreign_key "deliveries", "orders"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_production_processes", "orders"
+  add_foreign_key "order_production_processes", "production_processes"
   add_foreign_key "other_product_items", "order_items"
   add_foreign_key "other_product_items", "other_products"
   add_foreign_key "pizza_item_ingredients", "ingredients"
@@ -136,6 +138,4 @@ ActiveRecord::Schema.define(version: 2020_03_17_231105) do
   add_foreign_key "pizza_items", "order_items"
   add_foreign_key "pizza_items", "pizza_sizes"
   add_foreign_key "pizza_items", "pizzas"
-  add_foreign_key "pizza_production_processes", "pizzas"
-  add_foreign_key "pizza_production_processes", "production_processes"
 end

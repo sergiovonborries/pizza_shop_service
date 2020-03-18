@@ -1,4 +1,4 @@
-class PizzaProductionProcessSerializer < ActiveModel::Serializer
+class OrderProductionProcessSerializer < ActiveModel::Serializer
   attributes :id, :minutes
   attribute :name do
     object.production_process.name
