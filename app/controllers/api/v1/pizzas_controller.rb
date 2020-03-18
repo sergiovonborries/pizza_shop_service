@@ -19,7 +19,7 @@ module Api::V1
       @pizza = Pizza.new(pizza_params)
 
       if @pizza.save
-        render json: @pizza, status: :created, location: @pizza
+        render json: @pizza, status: :ok
       else
         render json: @pizza.errors, status: :unprocessable_entity
       end

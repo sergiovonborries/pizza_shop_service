@@ -19,7 +19,7 @@ module Api::V1
       @topping = Topping.new(topping_params)
 
       if @topping.save
-        render json: @topping, status: :created, location: @topping
+        render json: @topping, status: :ok
       else
         render json: @topping.errors, status: :unprocessable_entity
       end
