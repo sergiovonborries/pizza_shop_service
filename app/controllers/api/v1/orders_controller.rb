@@ -6,7 +6,7 @@ module Api::V1
     def index
       @orders = Order.all
 
-      render json: @orders
+      render json: @orders , include: "*.*"
     end
 
     # GET /orders/1
@@ -49,6 +49,7 @@ module Api::V1
       def order_params
         params.require(:order).permit(:customer_name, :comment, delivery_attributes: [ :id, :address, :ask_for],
                                       order_items_attributes: [ :id, :quantity, 
+                                        other_product_item_attributes: [ :id, :other_product_id ],
                                         pizza_item_attributes: [ :id, :cheese, :sauce, :crust, :custom_slices, :pizza_size_id, :pizza_id,
                                           pizza_item_toppings_attributes: [ :id, :pizza_item_id, :topping_id ],
                                           pizza_item_ingredients_attributes: [ :id, :pizza_item_id, :ingredient_id ] ]

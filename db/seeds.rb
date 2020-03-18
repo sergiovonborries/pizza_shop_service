@@ -74,18 +74,17 @@ if Order.count == 0
         Delivery.create(address: Faker::Address.street_address, ask_for: order.customer_name, order_id: order.id) if [true, false].sample
         rand(1..6).times do
             item = nil
+            orderitem = OrderItem.create(order_id: order.id, quantity: Faker::Number.number(digits: 1)) if order
             if [true, false].sample
-                item = PizzaItem.new(cheese: rand(3), crust: rand(3), sauce: rand(4), pizza_size_id: PizzaSize.order('RANDOM()').first.id, pizza_id: Pizza.order('RANDOM()').first.id)
+                item = PizzaItem.new(order_item_id: orderitem.id, cheese: rand(3), crust: rand(3), sauce: rand(4), pizza_size_id: PizzaSize.order('RANDOM()').first.id, pizza_id: Pizza.order('RANDOM()').first.id)
                 3.times do
                     item.pizza_item_ingredients.build(ingredient_id: Ingredient.order('RANDOM()').first.id)
                     item.pizza_item_toppings.build(topping_id: Topping.order('RANDOM()').first.id)
                 end
             else
-                item = OtherProductItem.new(other_product_id: OtherProduct.order('RANDOM()').first.id)
+                item = OtherProductItem.new(order_item_id: orderitem.id, other_product_id: OtherProduct.order('RANDOM()').first.id)
             end
-            
             item.save if item
-            orderitem = OrderItem.create(order_id: order.id, quantity: Faker::Number.number(digits: 1), orderable: item) if item
         end
     end
     puts 'Some Orders Created'

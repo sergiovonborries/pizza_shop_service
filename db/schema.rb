@@ -30,8 +30,6 @@ ActiveRecord::Schema.define(version: 2020_03_17_231105) do
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.integer "order_id", null: false
-    t.integer "orderable_id"
-    t.string "orderable_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
