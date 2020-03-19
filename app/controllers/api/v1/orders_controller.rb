@@ -19,7 +19,7 @@ module Api::V1
       @order = Order.new(order_params)
 
       if @order.save
-        render json: @order, status: :ok
+        render json: @order, include: "*.*", status: :ok
       else
         render json: @order.errors, status: :unprocessable_entity
       end
@@ -28,7 +28,7 @@ module Api::V1
     # PATCH/PUT /orders/1
     def update
       if @order.update(order_params)
-        render json: @order
+        render json: @order, include: "*.*"
       else
         render json: @order.errors, status: :unprocessable_entity
       end

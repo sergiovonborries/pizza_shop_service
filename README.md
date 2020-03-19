@@ -29,3 +29,15 @@ The last step is to install Bundler
 ```
 gem install bundler
 ```
+
+## Installing DB
+For this project we use SQLite3, and it is created in the db folder of the project, it's neccesary to run the next steps:
+```
+rake db:create
+rake db:migrate
+```
+It's neccesary to run the seeds, for the innitial Ingredients, Toppings, Pizzas, OtherProducts, ProductionProcess, and PizzaSizes
+Anyway, you can add new models using the APIs developed for all the models.
+```
+rake db:seed
+```
